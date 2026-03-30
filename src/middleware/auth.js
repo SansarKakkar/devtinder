@@ -18,4 +18,4 @@ catch(err){
     res.status(400).send("user not found")
 }
 };
-module.exports={userAuth,};
+module.exports={userAuth};

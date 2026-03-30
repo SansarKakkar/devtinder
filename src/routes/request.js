@@ -3,6 +3,7 @@ const { userAuth } = require("../middleware/auth");
 const requestRouter=express.Router();
 const User=require("../models/user");
 const ConnectionRequest=require("../models/connectionRequest");
+
 requestRouter.post("/Request/send/:status/:toUserId",userAuth,async(req,res)=>{
     try{
         const fromUserId=req.user._id;
@@ -35,8 +36,8 @@ requestRouter.post("/Request/send/:status/:toUserId",userAuth,async(req,res)=>{
         const data=await connectionRequest.save();
         res.json({
             message:"connection request sent",
-            data
-        })
+            data,
+        });
     }
     catch(err){
             res.status(400).send(err.message);
@@ -50,11 +51,11 @@ requestRouter.post("/Request/review/:status/:requestId",userAuth,async(req,res)=
 
     const allowedStatus=["accepted","rejected"];
     if(!allowedStatus.includes(status)){
-        return req.status(400).json({message:"status is not correct"});
+        return res.status(400).json({message:"status is not correct"});
     }
     const connectionRequest=await ConnectionRequest.findOne({
         _id: requestId,
-        toUserId:loggedInUser,
+        toUserId:loggedInUser._id,
         status:"interested",
     });
     if(!connectionRequest){
@@ -62,11 +63,11 @@ requestRouter.post("/Request/review/:status/:requestId",userAuth,async(req,res)=
     }
     connectionRequest.status=status;
     await connectionRequest.save();
-    res.json({message:"connection request"+status,data});
+    res.json({message:"connection request"+status,data:connectionRequest});
     }
     catch(err){
         res.status(400).send("ERROR :"+err.message);
     }
 });
 
-module.exports={requestRouter,}
+module.exports={requestRouter};
