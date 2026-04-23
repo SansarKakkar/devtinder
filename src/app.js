@@ -3,7 +3,8 @@ const app=express();
 const connectDB=require("./config/database");
 const cookieParser=require("cookie-parser");
 const { ReturnDocument } = require('mongodb');
-const cors=require("cors")
+const cors=require("cors");
+const http=require("http");
 app.use(express.json())
 app.use(cookieParser());
 app.use(cors({
@@ -14,15 +15,17 @@ const {authRouter}=require("./routes/auth");
 const {profileRouter}=require("./routes/profile");
 const {requestRouter}=require("./routes/request");
 const userRouter=require("./routes/user");
+const intializeSocket = require('./utils/socket');
 app.use('/',authRouter);
 app.use('/',profileRouter);
 app.use('/',requestRouter);
 app.use('/',userRouter);
 
-
+const server=http.createServer(app);
+intializeSocket(server);
 connectDB().then(()=>{
     console.log("db connected");
-    app.listen(777,()=>{
+    server.listen(777,()=>{
     console.log("sever 777");
 });
 })

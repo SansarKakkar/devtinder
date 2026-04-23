@@ -3,7 +3,8 @@ const User=require("../models/user")
 const userAuth=async (req,res,next)=>{
 try {const {token}=req.cookies;
 if(!token){
-    return res.send("token is not found");
+    return res.status(401).send("token is not found");
+
 }
 const decodedObj=await jwt.verify(token,"DevTinder")
 const {_id}=decodedObj;
@@ -15,7 +16,7 @@ req.user=user;
 next();
 }
 catch(err){
-    res.status(400).send("user not found")
+    res.status(401).send("user not found")
 }
 };
 module.exports={userAuth};

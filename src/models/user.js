@@ -38,7 +38,7 @@ const userSchema=mongoose.Schema({
     gender:{
         type:String,
         validate(value){
-            if(!['male','female','other'].includes(value)){
+            if(!['Male','Female','Other'].includes(value)){
                 throw new Error("gender not valid");  
             }
         },
@@ -47,8 +47,9 @@ const userSchema=mongoose.Schema({
         type:String,
         default:"this is default"
     },
-    photUrl:{
+    photoUrl:{
         type:String,
+        default:"https://www.shutterstock.com/image-vector/avatar-images-men-abstract-silhouettes-600w-2735123185.jpg"
     },
     skills:{
         type:[String],

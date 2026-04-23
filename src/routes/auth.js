@@ -17,8 +17,10 @@ const passwordHash=await bcrypt.hash(password,10);
         password:passwordHash
     }
  );
- await user.save();
- res.send("user added successfully")
+ const savedUser=await user.save();
+  const token=await savedUser.getJWT();
+            res.cookie("token",token);
+ res.json({data: savedUser});
 }
 catch(err){
     res.status(404).send(err.message)

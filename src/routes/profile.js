@@ -8,7 +8,7 @@ profileRouter.get("/profile",userAuth,async (req,res)=>{
     res.send(req.user);
     }
     catch(err){
-        res.status(400).send(err.message)
+        res.status(401).send(err.message)
     }
     });
 profileRouter.patch("/profile/edit",userAuth,async(req,res)=>{
