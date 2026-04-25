@@ -25,8 +25,8 @@ const server=http.createServer(app);
 intializeSocket(server);
 connectDB().then(()=>{
     console.log("db connected");
-    server.listen(777,()=>{
-    console.log("sever 777");
+    server.listen(3000,()=>{
+    console.log("server running on port 3000");
 });
 })
 .catch((err)=>{
