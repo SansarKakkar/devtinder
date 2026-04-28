@@ -6,7 +6,7 @@ if(!token){
     return res.status(401).send("token is not found");
 
 }
-const decodedObj=await jwt.verify(token,"DevTinder")
+const decodedObj=await jwt.verify(token,process.env.JWT_SECRET);
 const {_id}=decodedObj;
 const user=await User.findById(_id);
 if(!user){
