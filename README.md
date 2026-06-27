@@ -4,7 +4,7 @@ Backend API for **Link-Up** — a developer networking platform where you discov
 
 **Frontend:** [link-up-web](https://github.com/SansarKakkar/devtinder-web)
 
-![Link-Up architecture](./docs/screenshots/architecture.svg)
+![Link-Up architecture](./docs/screenshots/architecture.png)
 
 ## Features
 
